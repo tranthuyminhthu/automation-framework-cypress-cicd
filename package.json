@@ -1,0 +1,39 @@
+{
+  "name": "cypress-udemy-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "open": "cypress open",
+    "electron": "cypress run --spec \"cypress\\e2e\\Tc01_FirstScript.spec.cy.js\"",
+    "chrome": "cypress run --browser chrome --spec \"cypress\\e2e\\Tc01_FirstScript.spec.cy.js\"",
+    "smoke-test": "cypress run --spec \"cypress\\e2e\\smokeTest\\*.cy.js\"",
+    "test-electron-headed": "cypress run --headed",
+    "test-chrome-headed": "cypress run --browser chrome --headed",
+    "dashboard-run": "npx cypress run --record --key 93a8c49d-311a-4b56-9ef0-c6bca24a1373",
+    "scripts":"cypress run",
+    "clean:reports":"rmdir /S /Q cypress\\reports && mkdir cypress\\reports && mkdir cypress\\reports\\mochareports",
+    "pretest": "npm run clean:reports",
+    "posttest": "npm run combine-reports && npm run generate-report",
+    "test": "npm run scripts || npm run posttest",
+    "test:chrome": "npm run chrome || npm run posttest",
+    "test:electron": "npm run electron || npm run posttest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.14.1"
+  },
+  "devDependencies": {
+    "cypress-file-upload": "^5.0.8",
+    "cypress-multi-reporters": "^1.6.3",
+    "cypress-xpath": "^2.0.1",
+    "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "neat-csv": "^5.2.0",
+    "xlsx": "^0.18.5"
+  }
+}
