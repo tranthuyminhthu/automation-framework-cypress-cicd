@@ -21,19 +21,21 @@ pipeline {
             }
         }
 
-        stage('Generate and Publish Report') {
-            steps {
-                bat 'npm run generate-all-reports'
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'cypress/reports/mochareports',
-                    reportFiles: 'report.html',
-                    reportName: 'Mochawesome Report'
-                ])
-            }
-        }
+stage('Generate and Publish Report') {
+    steps {
+        bat 'npm run combine-reports'  // Chạy lệnh để kết hợp báo cáo
+        bat 'npm run generate-report'   // Chạy lệnh để tạo báo cáo HTML
+        publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'cypress/reports/mochareports',
+            reportFiles: 'report.html',
+            reportName: 'Mochawesome Report'
+        ])
+    }
+}
+
 
         stage('Archive Artifacts') {
             steps {
