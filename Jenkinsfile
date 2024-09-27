@@ -10,13 +10,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-bat 'npm run run-cypress'
+                bat 'npm install'
             }
         }
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npm cypress run' // Sử dụng lệnh test đã được định nghĩa trong package.json
+                bat 'npm run test' // Sử dụng lệnh test đã được định nghĩa trong package.json
             }
         }
     }

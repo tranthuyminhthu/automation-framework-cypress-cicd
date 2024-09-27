@@ -13,7 +13,8 @@
     "dashboard-run": "npx cypress run --record --key 93a8c49d-311a-4b56-9ef0-c6bca24a1373",
     "run-cypress": "npx cypress run",
     "clean:reports": "if exist cypress\\reports (rmdir /S /Q cypress\\reports) && mkdir cypress\\reports && mkdir cypress\\reports\\mochareports",
-    "pretest": "npm run clean:reports"
+    "pretest": "npm run clean:reports",
+    "test": "cypress run"
   }
 ,
   "keywords": [],
