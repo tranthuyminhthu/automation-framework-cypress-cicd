@@ -24,7 +24,6 @@ pipeline {
         stage('Generate and Publish Report') {
             steps {
                 // Kiểm tra xem file mochawesome.json có tồn tại không
-                bat 'if exist cypress\\reports\\mocha\\mochawesome.json (npm run combine-reports) else (echo "No mochawesome.json found.")'
                 bat 'npm run generate-report' // Chạy lệnh để tạo báo cáo HTML
                 publishHTML(target: [
                     allowMissing: false,
