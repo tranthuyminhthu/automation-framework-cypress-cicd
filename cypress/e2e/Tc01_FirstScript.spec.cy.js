@@ -10,5 +10,7 @@ describe('Login Functionality',function(){
         cy.get('button[type="submit"]').click()
         cy.get('a[href="#settings"]').click()
         cy.get('.btn.btn-outline-danger').click()
+        console.log("tesst");
+        console.log("ci/cd");
     })
 })
