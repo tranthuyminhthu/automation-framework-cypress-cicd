@@ -16,15 +16,19 @@ pipeline {
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npx cypress install --force'
-                bat 'npx cypress run --reporter mochawesome' // Thêm reporter nếu cần
+                bat 'npm run test' // Sử dụng lệnh test đã được định nghĩa trong package.json
             }
         }
 
         stage('Generate and Publish Report') {
             steps {
-                // Kiểm tra xem file mochawesome.json có tồn tại không
-                bat 'npm run generate-report' // Chạy lệnh để tạo báo cáo HTML
+                script {
+                    // Kiểm tra xem file mochawesome.json có tồn tại không
+                    bat 'if exist cypress\\reports\\mocha\\mochawesome.json (echo Report exists) else (echo Report not found)'
+
+                    // Chạy lệnh để tạo báo cáo HTML
+                    bat 'npm run generate-report'
+                }
                 publishHTML(target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
