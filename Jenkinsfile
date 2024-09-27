@@ -17,25 +17,25 @@ pipeline {
         stage('Run Cypress Tests') {
             steps {
                 bat 'npx cypress install --force'
-                bat 'npx cypress run'
+                bat 'npx cypress run --reporter mochawesome' // Thêm reporter nếu cần
             }
         }
 
-stage('Generate and Publish Report') {
-    steps {
-        bat 'npm run combine-reports'  // Chạy lệnh để kết hợp báo cáo
-        bat 'npm run generate-report'   // Chạy lệnh để tạo báo cáo HTML
-        publishHTML(target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: 'cypress/reports/mochareports',
-            reportFiles: 'report.html',
-            reportName: 'Mochawesome Report'
-        ])
-    }
-}
-
+        stage('Generate and Publish Report') {
+            steps {
+                // Kiểm tra xem file mochawesome.json có tồn tại không
+                bat 'if exist cypress\\reports\\mocha\\mochawesome.json (npm run combine-reports) else (echo "No mochawesome.json found.")'
+                bat 'npm run generate-report' // Chạy lệnh để tạo báo cáo HTML
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'cypress/reports/mochareports',
+                    reportFiles: 'report.html',
+                    reportName: 'Mochawesome Report'
+                ])
+            }
+        }
 
         stage('Archive Artifacts') {
             steps {
